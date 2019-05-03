@@ -1,0 +1,71 @@
+apply plugin: 'com.android.library'
+
+rootProject.core_plugins.each {
+    apply plugin: it
+}
+
+android {
+    compileSdkVersion versions.compileSdk
+    buildToolsVersion versions.buildTools
+
+    defaultConfig {
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.compileSdk
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            buildConfigField 'String', 'BASE_URL', fields.baseUrl
+            buildConfigField 'String', 'BASE_URL_UNSAFE', fields.baseUrlUnsafe
+            buildConfigField 'String', 'UPLOAD_URL', fields.uploadUrl
+            buildConfigField 'String', 'UPLOAD_URL_UNSAFE', fields.uploadUrlUnsafe
+            buildConfigField 'String', 'TOKEN_PREFIX', fields.tokenPrefix
+            buildConfigField 'String', 'DEFAULT_TOKEN', fields.defaultToken
+            buildConfigField 'String', 'PAYMENT_TOKEN', fields.paymentToken
+            buildConfigField 'String', 'AUTHORIZATION', fields.authorization
+            buildConfigField 'String', 'SESSION_FILE_NAME', fields.sessionFileName
+            buildConfigField 'String', 'SESSION_PASSWORD', fields.sessionPassword
+            buildConfigField 'String', 'LOGIN_SESSION_KEY', fields.loginSessionKey
+            buildConfigField 'String', 'TOKEN_SESSION_KEY', fields.tokenSessionKey
+            buildConfigField 'String', 'DEFAULT_LANGUAGE', fields.defaultLanguage
+            buildConfigField 'String', 'LANGUAGE_SESSION_KEY', fields.languageSessionKey
+        }
+        debug {
+            buildConfigField 'String', 'BASE_URL', fields.baseUrl
+            buildConfigField 'String', 'BASE_URL_UNSAFE', fields.baseUrlUnsafe
+            buildConfigField 'String', 'UPLOAD_URL', fields.uploadUrl
+            buildConfigField 'String', 'UPLOAD_URL_UNSAFE', fields.uploadUrlUnsafe
+            buildConfigField 'String', 'TOKEN_PREFIX', fields.tokenPrefix
+            buildConfigField 'String', 'DEFAULT_TOKEN', fields.defaultToken
+            buildConfigField 'String', 'PAYMENT_TOKEN', fields.paymentToken
+            buildConfigField 'String', 'AUTHORIZATION', fields.authorization
+            buildConfigField 'String', 'SESSION_FILE_NAME', fields.sessionFileName
+            buildConfigField 'String', 'SESSION_PASSWORD', fields.sessionPassword
+            buildConfigField 'String', 'LOGIN_SESSION_KEY', fields.loginSessionKey
+            buildConfigField 'String', 'TOKEN_SESSION_KEY', fields.tokenSessionKey
+            buildConfigField 'String', 'DEFAULT_LANGUAGE', fields.defaultLanguage
+            buildConfigField 'String', 'LANGUAGE_SESSION_KEY', fields.languageSessionKey
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    compileOptions {
+        sourceCompatibility versions.sourceCompat
+        targetCompatibility versions.targetCompat
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+    rootProject.core_deps.each {
+        add(it.configuration, it.dependency, it.options)
+    }
+}

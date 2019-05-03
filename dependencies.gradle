@@ -1,0 +1,238 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+ext {
+    //Custom fields for use in app api & sharedPreferences
+    fields = [
+            'baseUrl'           : '"https://baranfun.ir/withhossein/api/"',
+            'baseUrlUnsafe'     : '"http://baranfun.ir/withhossein/api/"',
+            'uploadUrl'         : '"https://baranfun.ir/withhossein/uploads/"',
+            'uploadUrlUnsafe'   : '"http://baranfun.ir/withhossein/uploads/"',
+            'tokenPrefix'       : '"Bearer "',
+            'defaultToken'      : '"mNZg8suqeq74foPiFSjNOtIbdRdmwpXD"',
+            'paymentToken'      : '"5846e8ab7d169f176b5d56d4ad7767c4"',
+            'authorization'     : '"Authorization"',
+            'sessionFileName'   : '"withhossein"',
+            'sessionPassword'   : '"ef6cb8ab9fbdbb37095c8bc8f1af8e83"',
+            'loginSessionKey'   : '"is.login"',
+            'tokenSessionKey'   : '"dynamic.token"',
+            'defaultLanguage'   : '"fa"',
+            'languageSessionKey': '"current.language"'
+    ]
+
+    //Library and plugins versions
+    versions = [
+            'minSdk'                   : 17,
+            'compileSdk'               : 28,
+            'buildTools'               : '29.0.0-rc2',
+            'gradle'                   : '3.5.0-alpha13',
+            'databinding'              : '3.5.0-alpha11',
+            'multidex'                 : '2.0.1',
+            'navigation_fragment_ktx'  : '2.0.0',
+            'navigation_ui_ktx'        : '2.0.0',
+            'kotlin_version'           : '1.3.30',
+            'lifecycle'                : '2.1.0-alpha04',
+            'room'                     : '2.1.0-alpha06',
+            'dagger'                   : '2.22.1',
+            'support'                  : '1.1.0-alpha04',
+            'recyclerView'             : '1.1.0-alpha02',
+            'cardview'                 : '1.0.0',
+            'supportv4'                : '1.0.0',
+            'supportcoreui'            : '1.0.0',
+            'material'                 : '1.1.0-alpha05',
+            'constraint'               : '2.0.0-alpha4',
+            'rxjava'                   : '2.2.8',
+            'rxandroid'                : '2.1.1',
+            'ktx'                      : '1.1.0-alpha05',
+            'retrofit'                 : '2.5.0',
+            'converter_gson'           : '2.5.0',
+            'okhttp'                   : '3.12.2',
+            'picasso'                  : '2.71828',
+            'retrofit2_rxjava2_adapter': '1.0.0',
+            'stetho'                   : '1.5.1',
+            'calligraphy3'             : '3.1.1',
+            'viewpump'                 : '2.0.2',
+            'junit'                    : '4.12',
+            'test_junit'               : '1.1.0',
+            'test_ext'                 : '3.1.1',
+            'logger'                   : '2.2.0',
+            'secure_preferences_lib'   : '0.1.7',
+            'sourceCompat'             : JavaVersion.VERSION_1_8,
+            'targetCompat'             : JavaVersion.VERSION_1_8
+    ]
+
+    //Library and plugins dependencies
+    deps = [
+            android    : [
+                    'android_gradle_plugin': "com.android.tools.build:gradle:${versions.gradle}",
+                    'databinding'          : "com.android.databinding:compiler:${versions.databinding}",
+                    'multidex'             : "androidx.multidex:multidex:${versions.multidex}",
+            ],
+            navigation : [
+                    'navigation_fragment_ktx': "androidx.navigation:navigation-fragment-ktx:${versions.navigation_fragment_ktx}",
+                    'navigation_ui_ktx'      : "androidx.navigation:navigation-ui-ktx:${versions.navigation_ui_ktx}",
+            ],
+            jetbrains  : [
+                    'kotlin_gradle_plugin': "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin_version}",
+                    'kotlin_stdlib'       : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin_version}",
+            ],
+            lifecycle  : [
+                    'lifecycle_extensions': "androidx.lifecycle:lifecycle-extensions:${versions.lifecycle}",
+                    'lifecycle_common'    : "androidx.lifecycle:lifecycle-common-java8:${versions.lifecycle}",
+            ],
+            room       : [
+                    'room_runtime' : "androidx.room:room-runtime:${versions.room}",
+                    'room_compiler': "androidx.room:room-compiler:${versions.room}",
+                    'room_rxjava2' : "androidx.room:room-rxjava2:${versions.room}",
+            ],
+            google     : [
+                    'dagger'                : "com.google.dagger:dagger:${versions.dagger}",
+                    'dagger_android'        : "com.google.dagger:dagger-android:${versions.dagger}",
+                    'dagger_android_support': "com.google.dagger:dagger-android-support:${versions.dagger}",
+                    'dagger_compiler'       : "com.google.dagger:dagger-compiler:${versions.dagger}",
+                    'dagger_processor'      : "com.google.dagger:dagger-android-processor:${versions.dagger}",
+            ],
+            support    : [
+                    'support'                : "androidx.appcompat:appcompat:${versions.support}",
+                    'recyclerview'           : "androidx.recyclerview:recyclerview:${versions.recyclerView}",
+                    'cardview'               : "androidx.cardview:cardview:${versions.cardview}",
+                    'supportv4'              : "androidx.legacy:legacy-support-v4:${versions.supportv4}",
+                    'supportcoreui'          : "androidx.legacy:legacy-support-core-ui:${versions.supportcoreui}",
+                    'material'               : "com.google.android.material:material:${versions.material}",
+                    'constraintlayout'       : "androidx.constraintlayout:constraintlayout:${versions.constraint}",
+                    'constraintlayout_solver': "androidx.constraintlayout:constraintlayout-solver:${versions.constraint}",
+            ],
+            reactivex  : [
+                    'rxjava'   : "io.reactivex.rxjava2:rxjava:${versions.rxjava}",
+                    'rxandroid': "io.reactivex.rxjava2:rxandroid:${versions.rxandroid}",
+            ],
+            kotlin     : [
+                    'ktx': "androidx.core:core-ktx:${versions.ktx}",
+            ],
+            squareup   : [
+                    'retrofit'      : "com.squareup.retrofit2:retrofit:${versions.retrofit}",
+                    'converter_gson': "com.squareup.retrofit2:converter-gson:${versions.converter_gson}",
+                    'okhttp'        : "com.squareup.okhttp3:okhttp:${versions.okhttp}",
+                    'picasso'       : "com.squareup.picasso:picasso:${versions.picasso}"
+            ],
+            jakewharton: [
+                    'retrofit2_rxjava2_adapter': "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:${versions.retrofit2_rxjava2_adapter}",
+            ],
+            facebook   : [
+                    'stetho'        : "com.facebook.stetho:stetho:${versions.stetho}",
+                    'stetho_okhttp3': "com.facebook.stetho:stetho-okhttp3:${versions.stetho}",
+            ],
+            inflationx : [
+                    'calligraphy3': "io.github.inflationx:calligraphy3:${versions.calligraphy3}",
+                    'viewpump'    : "io.github.inflationx:viewpump:${versions.viewpump}"
+            ],
+            test       : [
+                    'junit'        : "junit:junit:${versions.junit}",
+                    'test_junit'   : "androidx.test.ext:junit:${versions.test_junit}",
+                    'espresso_core': "androidx.test.espresso:espresso-core:${versions.test_ext}",
+            ],
+            additional : [
+                    'logger'                : "com.orhanobut:logger:${versions.logger}",
+                    'secure_preferences_lib': "com.scottyab:secure-preferences-lib:${versions.secure_preferences_lib}",
+            ],
+    ]
+
+    //Modules
+    def modules = [
+            core: ':core',
+            app : ':app'
+    ]
+
+    //Plugins
+    def plugins = [
+            'kotlin_android'   : 'kotlin-android',
+            'kotlin_extensions': 'kotlin-android-extensions',
+            'kotlin_kapt'      : 'kotlin-kapt'
+    ]
+
+    //App dependencies
+    app_deps = [
+            [configuration: "implementation", dependency: project(modules.core)],
+    ]
+
+    //Core dependencies
+    core_deps = [
+            //Android
+            [configuration: "api", dependency: deps.android.databinding],
+            [configuration: "api", dependency: deps.android.multidex],
+
+            //Navigation
+            [configuration: "api", dependency: deps.navigation.navigation_fragment_ktx],
+            [configuration: "api", dependency: deps.navigation.navigation_ui_ktx],
+
+            //Jetbrains
+            [configuration: "api", dependency: deps.jetbrains.kotlin_stdlib],
+
+            //Lifecycle
+            [configuration: "api", dependency: deps.lifecycle.lifecycle_extensions],
+            [configuration: "api", dependency: deps.lifecycle.lifecycle_common],
+
+            //Room
+            [configuration: "annotationProcessor", dependency: deps.room.room_compiler],
+            [configuration: "kapt", dependency: deps.room.room_compiler],
+            [configuration: "api", dependency: deps.room.room_runtime],
+            [configuration: "api", dependency: deps.room.room_rxjava2],
+
+            //Google
+            [configuration: "api", dependency: deps.google.dagger],
+            [configuration: "api", dependency: deps.google.dagger_android],
+            [configuration: "api", dependency: deps.google.dagger_android_support],
+            [configuration: "kapt", dependency: deps.google.dagger_compiler],
+            [configuration: "annotationProcessor", dependency: deps.google.dagger_processor],
+
+            //Support
+            [configuration: "api", dependency: deps.support.support],
+            [configuration: "api", dependency: deps.support.recyclerview],
+            [configuration: "api", dependency: deps.support.cardview],
+            [configuration: "api", dependency: deps.support.supportv4],
+            [configuration: "api", dependency: deps.support.supportcoreui],
+            [configuration: "api", dependency: deps.support.material],
+            [configuration: "api", dependency: deps.support.constraintlayout],
+            [configuration: "api", dependency: deps.support.constraintlayout_solver],
+
+            //Reactivex
+            [configuration: "api", dependency: deps.reactivex.rxjava],
+            [configuration: "api", dependency: deps.reactivex.rxandroid],
+
+            //Kotlin
+            [configuration: "api", dependency: deps.kotlin.ktx],
+
+            //Square up
+            [configuration: "api", dependency: deps.squareup.retrofit],
+            [configuration: "api", dependency: deps.squareup.converter_gson],
+            [configuration: "api", dependency: deps.squareup.okhttp],
+            [configuration: "api", dependency: deps.squareup.picasso],
+
+            //Jake wharton
+            [configuration: "api", dependency: deps.jakewharton.retrofit2_rxjava2_adapter],
+
+            //Facebook
+            [configuration: "api", dependency: deps.facebook.stetho],
+            [configuration: "api", dependency: deps.facebook.stetho_okhttp3],
+
+            //Calligraphy 3
+            [configuration: "api", dependency: deps.inflationx.calligraphy3],
+            [configuration: "api", dependency: deps.inflationx.viewpump],
+
+            //Test
+            [configuration: "testImplementation", dependency: deps.test.junit],
+            [configuration: "androidTestImplementation", dependency: deps.test.test_junit],
+            [configuration: "androidTestImplementation", dependency: deps.test.espresso_core],
+
+            //Additional
+            [configuration: "api", dependency: deps.additional.logger],
+            [configuration: "api", dependency: deps.additional.secure_preferences_lib],
+    ]
+
+    app_plugins = [
+            plugins.kotlin_android, plugins.kotlin_kapt, plugins.kotlin_extensions
+    ]
+
+    core_plugins = [
+            plugins.kotlin_android, plugins.kotlin_kapt, plugins.kotlin_extensions
+    ]
+}
