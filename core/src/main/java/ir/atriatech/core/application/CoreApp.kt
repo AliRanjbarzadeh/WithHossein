@@ -2,21 +2,20 @@ package ir.atriatech.core.application
 
 import android.app.Application
 import android.content.Context
-import android.os.Build
-import android.os.LocaleList
 import androidx.multidex.MultiDex
 import com.facebook.stetho.Stetho
+import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
+import com.orhanobut.logger.PrettyFormatStrategy
 import io.github.inflationx.calligraphy3.CalligraphyConfig
 import io.github.inflationx.calligraphy3.CalligraphyInterceptor
 import io.github.inflationx.viewpump.ViewPump
 import ir.atriatech.core.BuildConfig
 import ir.atriatech.core.R
-import ir.atriatech.core.constants.Constants
 import ir.atriatech.core.di.AppModule
 import ir.atriatech.core.di.CoreComponent
 import ir.atriatech.core.di.DaggerCoreComponent
-import java.util.*
+import timber.log.Timber
 
 open class CoreApp : Application() {
 
@@ -24,7 +23,7 @@ open class CoreApp : Application() {
 		lateinit var coreComponent: CoreComponent
 	}
 
-	override fun attachBaseContext(base: Context?) {
+	override fun attachBaseContext(base: Context) {
 		super.attachBaseContext(base)
 		MultiDex.install(this)
 	}
@@ -32,15 +31,34 @@ open class CoreApp : Application() {
 	override fun onCreate() {
 		super.onCreate()
 		initDI()
+		initLogger()
+		initTimber()
 		initStetho()
-//		initFont(
-//			initLocale(
-//				coreComponent.sharedPreferences().getString(
-//					Constants.LANGUAGE_SESSION_KEY,
-//					Constants.DEFAULT_LANGUAGE
-//				)!!
-//			)
-//		)
+		initFont(this)
+	}
+
+	private fun initDI() {
+		coreComponent = DaggerCoreComponent.builder().appModule(AppModule(applicationContext)).build()
+	}
+
+	private fun initLogger() {
+		val formatStrategy = PrettyFormatStrategy.newBuilder()
+			.showThreadInfo(true)  // (Optional) Whether to show thread info or not. Default true
+			.methodCount(2)         // (Optional) How many method line to show. Default 2
+			.methodOffset(2)        // (Optional) Hides internal method calls up to offset. Default 5
+//           .logStrategy(Timber.asTree()) // (Optional) Changes the log strategy to print out. Default LogCat
+			.tag("")   // (Optional) Global tag for every log. Default PRETTY_LOGGER
+			.build()
+
+		Logger.addLogAdapter(object : AndroidLogAdapter(formatStrategy) {})
+	}
+
+	private fun initTimber() {
+		Timber.plant(object : Timber.DebugTree() {
+			override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
+				Logger.log(priority, tag, message, t)
+			}
+		})
 	}
 
 	private fun initStetho() {
@@ -48,32 +66,10 @@ open class CoreApp : Application() {
 			Stetho.initializeWithDefaults(this)
 	}
 
-	private fun initDI() {
-		coreComponent = DaggerCoreComponent.builder().appModule(AppModule(this)).build()
-	}
-
-	private fun initLocale(language: String): Context {
-		val configuration = resources.configuration
-		val locale = Locale(language)
-		Locale.setDefault(locale)
-		configuration.setLocale(locale)
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-			val localList = LocaleList(locale)
-			LocaleList.setDefault(localList)
-			configuration.locales = localList
-		} else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-			configuration.setLocale(locale)
-		}
-		return createConfigurationContext(configuration)
-	}
-
 
 	private fun initFont(mContext: Context) {
 
 		val fontPath = mContext.getString(R.string.AppFont)
-		Logger.d(fontPath)
-
-		Logger.d(fontPath)
 		ViewPump.init(
 			ViewPump.builder()
 				.addInterceptor(
@@ -86,5 +82,4 @@ open class CoreApp : Application() {
 				).build()
 		)
 	}
-
 }

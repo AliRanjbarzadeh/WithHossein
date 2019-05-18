@@ -19,6 +19,7 @@ android {
 
     buildTypes {
         release {
+            buildConfigField 'String', 'PROJECT_NAME', fields.projectName
             buildConfigField 'String', 'BASE_URL', fields.baseUrl
             buildConfigField 'String', 'BASE_URL_UNSAFE', fields.baseUrlUnsafe
             buildConfigField 'String', 'UPLOAD_URL', fields.uploadUrl
@@ -35,6 +36,7 @@ android {
             buildConfigField 'String', 'LANGUAGE_SESSION_KEY', fields.languageSessionKey
         }
         debug {
+            buildConfigField 'String', 'PROJECT_NAME', fields.projectName
             buildConfigField 'String', 'BASE_URL', fields.baseUrl
             buildConfigField 'String', 'BASE_URL_UNSAFE', fields.baseUrlUnsafe
             buildConfigField 'String', 'UPLOAD_URL', fields.uploadUrl
@@ -66,6 +68,6 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
     rootProject.core_deps.each {
-        add(it.configuration, it.dependency, it.options)
+        add(it.configuration, it.dependency)
     }
 }

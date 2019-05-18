@@ -18,4 +18,7 @@ object Constants {
 	const val TOKEN_SESSION_KEY = BuildConfig.TOKEN_SESSION_KEY
 	const val DEFAULT_LANGUAGE = BuildConfig.DEFAULT_LANGUAGE
 	const val LANGUAGE_SESSION_KEY = BuildConfig.LANGUAGE_SESSION_KEY
+
+	//vars
+	lateinit var currentLanguage: String
 }

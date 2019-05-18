@@ -1,102 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
+	<data>
 
-        <import type="android.view.View" />
+		<import type="android.view.View" />
 
-        <variable
-            name="loading"
-            type="androidx.databinding.ObservableBoolean" />
-    </data>
+		<variable
+			name="loading"
+			type="androidx.databinding.ObservableBoolean" />
+	</data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layoutDirection="rtl"
-        tools:ignore="UnusedAttribute">
+	<androidx.coordinatorlayout.widget.CoordinatorLayout
+		android:id="@+id/parentView"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layoutDirection="locale"
+		tools:ignore="UnusedAttribute">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/mAppBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+		<com.google.android.material.appbar.AppBarLayout
+			android:id="@+id/mAppBar"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/mToolbar"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/actionBarHeight"
-                app:contentInsetEnd="0dp"
-                app:contentInsetLeft="0dp"
-                app:contentInsetRight="0dp"
-                app:contentInsetStart="0dp">
+			<androidx.appcompat.widget.Toolbar
+				android:id="@+id/mToolbar"
+				android:layout_width="match_parent"
+				android:layout_height="@dimen/actionBarHeight"
+				app:contentInsetEnd="0dp"
+				app:contentInsetLeft="0dp"
+				app:contentInsetRight="0dp"
+				app:contentInsetStart="0dp">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+				<androidx.constraintlayout.widget.ConstraintLayout
+					android:layout_width="match_parent"
+					android:layout_height="match_parent">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/mTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:gravity="center_vertical|start"
-                        android:text="@string/login"
-                        android:textAlignment="viewStart"
-                        android:textColor="@color/toolbarColor"
-                        android:textSize="16sp"
-                        android:transitionName="mTitle"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/mProgressBar"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+					<ProgressBar
+						android:id="@+id/mProgressBar"
+						style="?android:attr/progressBarStyleSmall"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginEnd="16dp"
+						android:visibility="@{loading ? View.VISIBLE : View.INVISIBLE}"
+						app:layout_constraintBottom_toBottomOf="parent"
+						app:layout_constraintEnd_toEndOf="parent"
+						app:layout_constraintTop_toTopOf="parent" />
 
-                    <ProgressBar
-                        android:id="@+id/mProgressBar"
-                        style="?android:attr/progressBarStyleSmall"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:visibility="@{loading ? View.VISIBLE : View.INVISIBLE}"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+					<androidx.appcompat.widget.AppCompatTextView
+						android:id="@+id/mTitle"
+						android:layout_width="0dp"
+						android:layout_height="0dp"
+						android:layout_marginStart="16dp"
+						android:layout_marginEnd="16dp"
+						android:gravity="center_vertical|start"
+						android:text="@string/login"
+						android:textAlignment="viewStart"
+						android:textColor="@color/toolbarColor"
+						android:textSize="16sp"
+						android:transitionName="mTitle"
+						app:layout_constraintBottom_toBottomOf="parent"
+						app:layout_constraintEnd_toStartOf="@id/mProgressBar"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintTop_toTopOf="parent" />
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+				</androidx.constraintlayout.widget.ConstraintLayout>
 
-            </androidx.appcompat.widget.Toolbar>
+			</androidx.appcompat.widget.Toolbar>
 
-        </com.google.android.material.appbar.AppBarLayout>
+		</com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/mNestedScrollView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+		<androidx.core.widget.NestedScrollView
+			android:id="@+id/mNestedScrollView"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:fillViewport="true"
+			app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/mParentView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+			<androidx.constraintlayout.widget.ConstraintLayout
+				android:id="@+id/mParentView"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/mButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:text="@string/next_step"
-                    android:transitionName="mButton"
-                    app:cornerRadius="15dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+				<com.google.android.material.button.MaterialButton
+					android:id="@+id/mButton"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_margin="16dp"
+					android:text="@string/next_step"
+					android:transitionName="mButton"
+					app:cornerRadius="15dp"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toTopOf="parent" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+			</androidx.constraintlayout.widget.ConstraintLayout>
 
-        </androidx.core.widget.NestedScrollView>
+		</androidx.core.widget.NestedScrollView>
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+		<com.google.android.material.floatingactionbutton.FloatingActionButton
+			android:id="@+id/fabLanguage"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="bottom|end"
+			android:layout_margin="16dp" />
+
+	</androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
