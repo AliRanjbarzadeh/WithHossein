@@ -13,4 +13,24 @@
 		<item name="windowNoTitle">true</item>
 	</style>
 
+	<style name="TextInputLayoutAppearance" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+		<!-- reference our hint & error styles -->
+		<item name="hintTextAppearance">@style/HintText</item>
+		<item name="errorTextAppearance">@style/ErrorText</item>
+		<item name="boxStrokeColor">#000000</item>
+		<item name="colorControlNormal">#000000</item>
+		<item name="boxBackgroundColor">@color/transparent</item>
+		<item name="boxBackgroundMode">outline</item>
+	</style>
+
+	<style name="ErrorText" parent="TextAppearance.AppCompat">
+		<item name="android:textColor">#E53935</item>
+		<item name="android:textSize">16sp</item>
+	</style>
+
+	<style name="HintText" parent="TextAppearance.AppCompat">
+		<item name="android:textColor">#636363</item>
+		<item name="android:textSize">14sp</item>
+	</style>
+
 </resources>

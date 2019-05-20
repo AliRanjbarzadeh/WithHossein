@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/mobileFragment"
-        android:name="ir.meysamd.withhossein.app.login.MobileFragment"
+        android:name="ir.meysamd.withhossein.app.login.mobile.MobileFragment"
         android:label="MobileFragment"
         tools:layout="@layout/fragment_mobile" />
     <fragment
         android:id="@+id/verifyFragment"
-        android:name="ir.meysamd.withhossein.app.login.VerifyFragment"
+        android:name="ir.meysamd.withhossein.app.login.verify.VerifyFragment"
         android:label="VerifyFragment"
         tools:layout="@layout/fragment_verify" />
 </navigation>

@@ -1,6 +1,12 @@
 <resources>
-    <string name="app_name">WithHossein</string>
+    <string name="app_name">با حسین</string>
+
+	<!--Login-->
     <string name="login">ورود</string>
     <string name="next_step">مرحله بعد</string>
     <string name="verify">تایید شماره همراه</string>
+	<string name="mobile">شماره تلفن همراه</string>
+	<string name="mobile_empty">لطفا یک شماره وارد کنید</string>
+	<string name="mobile_not_valid">لطفا یک شماره معتبر وارد کنید</string>
+	<string name="mobile_samle">شماره جدید نمی تواند با شماره فعلی برابر باشد</string>
 </resources>

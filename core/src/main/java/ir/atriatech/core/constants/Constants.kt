@@ -22,3 +22,5 @@ object Constants {
 	//vars
 	lateinit var currentLanguage: String
 }
+
+const val DEFAULT_ERROR = "خطا در برقراری ارتباط"

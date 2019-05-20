@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!--Fonts-->
+	<string name="AppFont">fonts/PersianAppFont.ttf</string>
+	<string name="AppFontBold">fonts/PersianAppFontBold.ttf</string>
+	<string name="AppFontLight">fonts/PersianAppFontLight.ttf</string>
+</resources>

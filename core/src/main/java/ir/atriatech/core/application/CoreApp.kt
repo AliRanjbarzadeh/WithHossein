@@ -12,9 +12,13 @@ import io.github.inflationx.calligraphy3.CalligraphyInterceptor
 import io.github.inflationx.viewpump.ViewPump
 import ir.atriatech.core.BuildConfig
 import ir.atriatech.core.R
+import ir.atriatech.core.constants.Constants
 import ir.atriatech.core.di.AppModule
 import ir.atriatech.core.di.CoreComponent
 import ir.atriatech.core.di.DaggerCoreComponent
+import ir.atriatech.core.extensions.Ext
+import ir.atriatech.core.extensions.d
+import ir.atriatech.core.extensions.setLanguage
 import timber.log.Timber
 
 open class CoreApp : Application() {
@@ -31,14 +35,24 @@ open class CoreApp : Application() {
 	override fun onCreate() {
 		super.onCreate()
 		initDI()
+		initLanguage()
 		initLogger()
 		initTimber()
 		initStetho()
 		initFont(this)
+		Ext.with(this)
 	}
 
 	private fun initDI() {
 		coreComponent = DaggerCoreComponent.builder().appModule(AppModule(applicationContext)).build()
+	}
+
+	private fun initLanguage() {
+		val language = coreComponent.sharedPreferences().getString(
+			Constants.LANGUAGE_SESSION_KEY,
+			Constants.DEFAULT_LANGUAGE
+		)!!
+		setLanguage(language)
 	}
 
 	private fun initLogger() {

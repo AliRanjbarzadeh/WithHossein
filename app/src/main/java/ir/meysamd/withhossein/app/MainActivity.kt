@@ -11,8 +11,4 @@ class MainActivity : BaseActivity() {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
 	}
-
-	override fun changeLanguage(language: String) {
-		setLanguage(applicationContext, language)
-	}
 }

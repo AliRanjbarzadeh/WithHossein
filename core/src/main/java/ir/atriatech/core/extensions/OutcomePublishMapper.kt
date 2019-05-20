@@ -1,5 +1,6 @@
 package ir.atriatech.core.extensions
 
+import com.jakewharton.retrofit2.adapter.rxjava2.HttpException
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
 import ir.atriatech.core.application.BaseMutableLiveData
@@ -18,6 +19,26 @@ fun <T> PublishSubject<T>.toLiveData(compositeDisposable: CompositeDisposable): 
 fun <T> PublishSubject<T>.refreshLiveData(compositeDisposable: CompositeDisposable, data: BaseMutableLiveData<T>) {
 	data.disposable = this.subscribe { t: T -> data.value = t }
 	compositeDisposable.add(data.disposable!!)
+}
+
+/**
+ * Extension function to push a httpException to the observing outcome
+ * */
+fun <T> PublishSubject<Outcome<T>>.serverError(serverError: HttpException) {
+	with(this) {
+		loading(false)
+		onNext(Outcome.serverError(serverError))
+	}
+}
+
+/**
+ * Extension function to push a unauthorized to the observing outcome
+ * */
+fun <T> PublishSubject<Outcome<T>>.unauthorized(logout: Boolean = false) {
+	with(this) {
+		loading(false)
+		onNext(Outcome.unauthorized(logout))
+	}
 }
 
 /**

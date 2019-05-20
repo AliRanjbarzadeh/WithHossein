@@ -13,7 +13,8 @@
 		android:theme="@style/AppTheme">
 		<activity
 			android:name=".app.MainActivity"
-			android:configChanges="orientation|keyboardHidden">
+			android:configChanges="orientation|keyboardHidden"
+			android:windowSoftInputMode="adjustResize">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 

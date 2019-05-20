@@ -58,6 +58,7 @@ ext {
             'test_ext'                 : '3.1.1',
             'logger'                   : '2.2.0',
             'secure_preferences_lib'   : '0.1.7',
+            'styleabletoast'           : '2.2.2',
             'sourceCompat'             : JavaVersion.VERSION_1_8,
             'targetCompat'             : JavaVersion.VERSION_1_8
     ]
@@ -136,6 +137,7 @@ ext {
             additional : [
                     'logger'                : "com.orhanobut:logger:${versions.logger}",
                     'secure_preferences_lib': "com.scottyab:secure-preferences-lib:${versions.secure_preferences_lib}",
+                    'styleabletoast'        : "com.muddzdev:styleabletoast:${versions.styleabletoast}",
             ],
     ]
 
@@ -229,6 +231,7 @@ ext {
             //Additional
             [configuration: "api", dependency: deps.additional.logger],
             [configuration: "api", dependency: deps.additional.secure_preferences_lib],
+            [configuration: "api", dependency: deps.additional.styleabletoast],
     ]
 
     app_plugins = [

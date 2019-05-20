@@ -22,8 +22,9 @@ class MyServiceInterceptor @Inject constructor(private val sharedPreferences: Sh
 		val language = sharedPreferences.getString(LANGUAGE_SESSION_KEY, DEFAULT_LANGUAGE)!!
 
 		builder.header("Cache-Control", "no-cache")
-//		builder.header("User-Agent", "TelePizza-Android")
+		builder.header("User-Agent", "WithHossein-Android-Application")
 		builder.header("Language", language)
+		builder.header("Device", "1")
 		builder.header(AUTHORIZATION, TOKEN_PREFIX + authorization)
 
 		return chain.proceed(builder.build())
