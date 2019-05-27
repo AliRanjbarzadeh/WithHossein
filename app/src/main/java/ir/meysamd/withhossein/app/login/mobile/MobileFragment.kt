@@ -4,14 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.lifecycle.ViewModelProviders
 import ir.atriatech.core.extensions.afterTextChanged
+import ir.atriatech.core.extensions.closeKeyboard
 import ir.atriatech.core.extensions.openKeyboard
 import ir.meysamd.withhossein.R
 import ir.meysamd.withhossein.core.BaseFragment
 import ir.meysamd.withhossein.databinding.FragmentMobileBinding
 
-class MobileFragment : BaseFragment(), View.OnClickListener {
+class MobileFragment : BaseFragment() {
 
 	private lateinit var viewDataBinding: FragmentMobileBinding
 
@@ -31,6 +33,8 @@ class MobileFragment : BaseFragment(), View.OnClickListener {
 			viewModel = mViewModel
 		}
 
+		initBase(mParentView = viewDataBinding.mParentView)
+
 		return viewDataBinding.root
 	}
 
@@ -43,25 +47,38 @@ class MobileFragment : BaseFragment(), View.OnClickListener {
 		super.onViewCreated(view, savedInstanceState)
 
 		viewDataBinding.etxMobile.run {
-			afterTextChanged {
-				mViewModel.mobile = it
+			afterTextChanged { mViewModel.mobile = it }
+			setOnEditorActionListener { _, actionId, _ ->
+				when (actionId) {
+					EditorInfo.IME_ACTION_DONE -> viewDataBinding.btnLogin.performClick()
+				}
+				true
 			}
 			requestFocus()
 			openKeyboard(this)
 		}
 
 		viewDataBinding.btnLogin.run {
-			setOnClickListener(this@MobileFragment)
-		}
-	}
+			setOnClickListener {
+				if (!mViewModel.login()) {
+					viewDataBinding.etxMobile.requestFocus()
+					openKeyboard(viewDataBinding.etxMobile)
+				} else
+					closeKeyboard()
 
-	override fun onClick(v: View?) {
-		when (v) {
-			viewDataBinding.btnLogin -> {
-				mViewModel.login()
 			}
 		}
 	}
+
+	override fun onVisibilityChanged(isOpen: Boolean) {
+		when (isOpen) {
+			false -> {
+				viewDataBinding.etxMobile.clearFocus()
+			}
+		}
+	}
+
+	/*===============My methods===============*/
 
 	private fun setupErrors() {
 		mViewModel.run {

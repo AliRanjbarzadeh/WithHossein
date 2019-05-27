@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import androidx.multidex.MultiDex
 import com.facebook.stetho.Stetho
+import com.orhanobut.hawk.Hawk
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import com.orhanobut.logger.PrettyFormatStrategy
@@ -17,7 +18,7 @@ import ir.atriatech.core.di.AppModule
 import ir.atriatech.core.di.CoreComponent
 import ir.atriatech.core.di.DaggerCoreComponent
 import ir.atriatech.core.extensions.Ext
-import ir.atriatech.core.extensions.d
+import ir.atriatech.core.extensions.loadFromSp
 import ir.atriatech.core.extensions.setLanguage
 import timber.log.Timber
 
@@ -35,24 +36,17 @@ open class CoreApp : Application() {
 	override fun onCreate() {
 		super.onCreate()
 		initDI()
-		initLanguage()
 		initLogger()
 		initTimber()
 		initStetho()
-		initFont(this)
+		initHawk()
+		initLanguage()
+		initFont()
 		Ext.with(this)
 	}
 
 	private fun initDI() {
 		coreComponent = DaggerCoreComponent.builder().appModule(AppModule(applicationContext)).build()
-	}
-
-	private fun initLanguage() {
-		val language = coreComponent.sharedPreferences().getString(
-			Constants.LANGUAGE_SESSION_KEY,
-			Constants.DEFAULT_LANGUAGE
-		)!!
-		setLanguage(language)
 	}
 
 	private fun initLogger() {
@@ -80,16 +74,22 @@ open class CoreApp : Application() {
 			Stetho.initializeWithDefaults(this)
 	}
 
+	private fun initHawk() {
+		Hawk.init(this).build()
+	}
 
-	private fun initFont(mContext: Context) {
+	private fun initLanguage() {
+		val language = loadFromSp<String>(Constants.LANGUAGE_SESSION_KEY, Constants.DEFAULT_LANGUAGE)
+		setLanguage(language)
+	}
 
-		val fontPath = mContext.getString(R.string.AppFont)
+	private fun initFont() {
 		ViewPump.init(
 			ViewPump.builder()
 				.addInterceptor(
 					CalligraphyInterceptor(
 						CalligraphyConfig.Builder()
-							.setDefaultFontPath(fontPath)
+							.setDefaultFontPath(applicationContext.getString(R.string.AppFont))
 							.setFontAttrId(R.attr.fontPath)
 							.build()
 					)

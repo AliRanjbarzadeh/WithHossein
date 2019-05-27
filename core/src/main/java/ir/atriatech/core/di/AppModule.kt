@@ -7,7 +7,7 @@ import ir.atriatech.core.networking.AppScheduler
 import ir.atriatech.core.networking.Scheduler
 import javax.inject.Singleton
 
-@Module(includes = [StorageModule::class])
+@Module
 class AppModule(val context: Context) {
 	@Provides
 	@Singleton

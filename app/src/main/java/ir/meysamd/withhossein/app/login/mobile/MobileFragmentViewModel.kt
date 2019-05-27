@@ -31,15 +31,18 @@ class MobileFragmentViewModel : BaseFragmentViewModel() {
 		component.inject(this)
 	}
 
-	fun login() {
-		if (mobile.isNullOrEmpty()) {
+	fun login(): Boolean {
+		if (mobile.isEmpty()) {
 			eToast(empty)
-			return
+			return false
 		}
 
-		if (mobile.validMobile())
-			loginRepository.login(mobile.toEn(), bag)
-		else
+		if (!mobile.validMobile()) {
 			eToast(notValid)
+			return false
+		}
+
+		loginRepository.login(mobile.toEn(), bag)
+		return true
 	}
 }

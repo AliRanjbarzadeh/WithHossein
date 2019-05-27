@@ -25,7 +25,7 @@ fun <T> LiveData<Outcome<T>>.observeOutCome(@NonNull owner: LifecycleOwner, @Non
 
 			is Outcome.ServerError -> liveResult.onServerError(outcome.httpException.getServerErrorMessage())
 
-			is Outcome.Unathorized -> {
+			is Outcome.Unauthorized -> {
 				liveResult.onUnauthorized()
 				//TODO: delete all shared prefs
 			}

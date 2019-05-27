@@ -9,7 +9,8 @@ import ir.meysamd.withhossein.core.common.MyAppObjects
 abstract class BaseActivity : AppCompatActivity() {
 	override fun attachBaseContext(newBase: Context) {
 		setLanguage(newBase, MyAppObjects.language)
-		super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase))
+//		super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase))
+		super.attachBaseContext(newBase)
 	}
 
 	override fun onResume() {

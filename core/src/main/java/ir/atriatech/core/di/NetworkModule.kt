@@ -3,7 +3,6 @@ package ir.atriatech.core.di
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
-import android.util.Log
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.google.gson.Gson
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -11,7 +10,7 @@ import dagger.Module
 import dagger.Provides
 import ir.atriatech.core.BuildConfig
 import ir.atriatech.core.constants.Constants
-import ir.atriatech.core.constants.Constants.TAG
+import ir.atriatech.core.extensions.d
 import ir.atriatech.core.networking.MyServiceInterceptor
 import okhttp3.Cache
 import okhttp3.OkHttpClient
@@ -25,7 +24,7 @@ import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
 
-@Module(includes = [StorageModule::class])
+@Module
 class NetworkModule {
 	@Provides
 	@Singleton
@@ -34,7 +33,7 @@ class NetworkModule {
 		rxJava2CallAdapterFactory: RxJava2CallAdapterFactory,
 		okHttpClient: OkHttpClient
 	): Retrofit {
-		Log.d(TAG, "retrofit Created")
+		d("Retrofit created")
 		if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT_WATCH) {
 			return Retrofit.Builder().baseUrl(Constants.API_URL_UNSAFE)
 				.addConverterFactory(gsonConverterFactory)
@@ -92,13 +91,20 @@ class NetworkModule {
 			}
 		}
 
-		if (BuildConfig.DEBUG)
-			client.addNetworkInterceptor(StethoInterceptor())
+//		if (BuildConfig.DEBUG) {
+//			client.addNetworkInterceptor(StethoInterceptor())
+//			client.cache(cache)
+//		}
 
-		if (BuildConfig.DEBUG)
-			client.cache(cache)
+		client.run {
+			if (BuildConfig.DEBUG) {
+				addNetworkInterceptor(StethoInterceptor())
+				cache(cache)
+			}
+			addInterceptor(interceptor)
+		}
 
-		client.addInterceptor(interceptor)
+//		client.addInterceptor(interceptor)
 
 		return client.build()
 	}
