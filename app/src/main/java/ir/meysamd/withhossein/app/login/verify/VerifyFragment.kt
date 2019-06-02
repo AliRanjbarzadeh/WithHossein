@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.transition.TransitionInflater
 import ir.meysamd.withhossein.R
 import ir.meysamd.withhossein.core.BaseFragment
@@ -13,23 +12,28 @@ import ir.meysamd.withhossein.databinding.FragmentVerifyBinding
 
 class VerifyFragment : BaseFragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+	private lateinit var viewDataBinding: FragmentVerifyBinding
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
-        }
-    }
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        if (container == null) {
-            return null
-        }
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+			sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+		}
+	}
 
-        val binding = DataBindingUtil.inflate<FragmentVerifyBinding>(
-                inflater,
-                R.layout.fragment_verify, container, false
-        )
-        return binding.root
-    }
+	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+		if (container == null) {
+			return null
+		}
+
+		viewDataBinding = FragmentVerifyBinding.inflate(inflater, container, false).apply {
+		}
+
+		viewDataBinding.mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp)
+		viewDataBinding.mToolbar.setNavigationOnClickListener {
+			activity?.onBackPressed()
+		}
+		return viewDataBinding.root
+	}
 }

@@ -25,7 +25,7 @@ ext {
             'minSdk'                   : 17,
             'compileSdk'               : 28,
             'buildTools'               : '29.0.0-rc2',
-            'gradle'                   : '3.5.0-beta02',
+            'gradle'                   : '3.5.0-beta03',
             'databinding'              : '3.5.0-alpha11',
             'multidex'                 : '2.0.1',
             'navigation_fragment_ktx'  : '2.0.0',
@@ -60,6 +60,7 @@ ext {
             'hawk'                     : '2.0.1',
             'styleabletoast'           : '2.2.2',
             'keyboardvisibilityevent'  : '2.3.0',
+            'smoothprogressbar'        : '1.1.0',
             'sourceCompat'             : JavaVersion.VERSION_1_8,
             'targetCompat'             : JavaVersion.VERSION_1_8
     ]
@@ -140,6 +141,7 @@ ext {
                     'hawk'                   : "com.orhanobut:hawk:${versions.hawk}",
                     'styleabletoast'         : "com.muddzdev:styleabletoast:${versions.styleabletoast}",
                     'keyboardvisibilityevent': "net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:${versions.keyboardvisibilityevent}",
+                    'smoothprogressbar'      : "com.github.castorflex.smoothprogressbar:library:${versions.smoothprogressbar}",
             ],
     ]
 
@@ -235,6 +237,7 @@ ext {
             [configuration: "api", dependency: deps.additional.hawk],
             [configuration: "api", dependency: deps.additional.styleabletoast],
             [configuration: "api", dependency: deps.additional.keyboardvisibilityevent],
+            [configuration: "api", dependency: deps.additional.smoothprogressbar],
     ]
 
     app_plugins = [

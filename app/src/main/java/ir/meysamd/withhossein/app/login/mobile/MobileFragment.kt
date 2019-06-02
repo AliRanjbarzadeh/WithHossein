@@ -1,12 +1,14 @@
 package ir.meysamd.withhossein.app.login.mobile
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.lifecycle.ViewModelProviders
-import ir.atriatech.core.extensions.afterTextChanged
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import ir.atriatech.core.extensions.closeKeyboard
 import ir.atriatech.core.extensions.openKeyboard
 import ir.meysamd.withhossein.R
@@ -47,7 +49,6 @@ class MobileFragment : BaseFragment() {
 		super.onViewCreated(view, savedInstanceState)
 
 		viewDataBinding.etxMobile.run {
-			afterTextChanged { mViewModel.mobile = it }
 			setOnEditorActionListener { _, actionId, _ ->
 				when (actionId) {
 					EditorInfo.IME_ACTION_DONE -> viewDataBinding.btnLogin.performClick()
@@ -63,8 +64,17 @@ class MobileFragment : BaseFragment() {
 				if (!mViewModel.login()) {
 					viewDataBinding.etxMobile.requestFocus()
 					openKeyboard(viewDataBinding.etxMobile)
-				} else
+				} else {
 					closeKeyboard()
+					Handler().postDelayed({
+						mViewModel.stopLoading()
+
+						val extras = FragmentNavigatorExtras(
+							viewDataBinding.btnLogin to "mButton"
+						)
+						findNavController().navigate(R.id.verifyFragment, null, null, extras)
+					}, 3000)
+				}
 
 			}
 		}
@@ -79,7 +89,6 @@ class MobileFragment : BaseFragment() {
 	}
 
 	/*===============My methods===============*/
-
 	private fun setupErrors() {
 		mViewModel.run {
 			empty = getString(R.string.mobile_empty)

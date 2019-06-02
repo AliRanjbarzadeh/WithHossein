@@ -43,6 +43,11 @@ class MobileFragmentViewModel : BaseFragmentViewModel() {
 		}
 
 		loginRepository.login(mobile.toEn(), bag)
+		_dataLoading.value = true
 		return true
+	}
+
+	fun stopLoading() {
+		_dataLoading.value = false
 	}
 }

@@ -28,33 +28,16 @@
 			<androidx.appcompat.widget.Toolbar
 				android:id="@+id/mToolbar"
 				android:layout_width="match_parent"
-				android:layout_height="@dimen/actionBarHeight"
-				app:contentInsetEnd="0dp"
-				app:contentInsetLeft="0dp"
-				app:contentInsetRight="0dp"
-				app:contentInsetStart="0dp">
+				android:layout_height="@dimen/actionBarHeight">
 
 				<androidx.constraintlayout.widget.ConstraintLayout
 					android:layout_width="match_parent"
 					android:layout_height="match_parent">
 
-					<ProgressBar
-						android:id="@+id/mProgressBar"
-						style="?android:attr/progressBarStyleSmall"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:layout_marginEnd="16dp"
-						android:visibility="@{viewModel.dataLoading ? View.VISIBLE : View.INVISIBLE}"
-						app:layout_constraintBottom_toBottomOf="parent"
-						app:layout_constraintEnd_toEndOf="parent"
-						app:layout_constraintTop_toTopOf="parent" />
-
 					<androidx.appcompat.widget.AppCompatTextView
 						android:id="@+id/mTitle"
 						android:layout_width="0dp"
 						android:layout_height="0dp"
-						android:layout_marginStart="16dp"
-						android:layout_marginEnd="16dp"
 						android:gravity="center_vertical|start"
 						android:text="@string/login"
 						android:textAlignment="viewStart"
@@ -62,7 +45,7 @@
 						android:textSize="16sp"
 						android:transitionName="mTitle"
 						app:layout_constraintBottom_toBottomOf="parent"
-						app:layout_constraintEnd_toStartOf="@id/mProgressBar"
+						app:layout_constraintEnd_toEndOf="parent"
 						app:layout_constraintStart_toStartOf="parent"
 						app:layout_constraintTop_toTopOf="parent" />
 
@@ -83,6 +66,17 @@
 				android:id="@+id/mParentView"
 				android:layout_width="match_parent"
 				android:layout_height="match_parent">
+
+				<fr.castorflex.android.smoothprogressbar.SmoothProgressBar
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:indeterminate="@{viewModel.dataLoading}"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toTopOf="parent"
+					app:spb_color="@color/success"
+					app:spb_progressiveStart_activated="false"
+					app:spb_sections_count="4" />
 
 				<com.google.android.material.textfield.TextInputLayout
 					android:id="@+id/tilMobile"
@@ -111,7 +105,8 @@
 						android:maxLength="11"
 						android:paddingStart="8dp"
 						android:paddingEnd="8dp"
-						android:singleLine="true" />
+						android:singleLine="true"
+						android:text="@={viewModel.mobile}" />
 				</com.google.android.material.textfield.TextInputLayout>
 
 				<com.google.android.material.button.MaterialButton
@@ -121,6 +116,7 @@
 					android:layout_marginTop="32dp"
 					android:ems="10"
 					android:text="@string/login"
+					android:transitionName="mButton"
 					app:backgroundTint="@color/colorPrimary"
 					app:layout_constraintEnd_toEndOf="parent"
 					app:layout_constraintStart_toStartOf="parent"
