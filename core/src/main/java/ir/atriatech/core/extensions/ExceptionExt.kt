@@ -2,46 +2,19 @@ package ir.atriatech.core.extensions
 
 import com.google.gson.Gson
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException
-import ir.atriatech.core.constants.DEFAULT_ERROR
-import ir.atriatech.core.entities.Msg
+import ir.atriatech.core.entities.ServerErrorObject
 
-fun HttpException.getServerErrorMessage(): String {
-	var errorMessage = DEFAULT_ERROR
+fun HttpException.getServerErrorObject(): ServerErrorObject {
+	var msg = ServerErrorObject()
 	try {
 		val gson = Gson()
 		val json = response().errorBody()?.string()
-		val error = gson.fromJson(json, Msg::class.java)
-		e(error.msg)
-		errorMessage = error.msg
-
+		msg = gson.fromJson(json, ServerErrorObject::class.java)
+		e(msg.msg)
 	} catch (e: Exception) {
 		//Network error
-		e(errorMessage)
+		e(e.message.toString())
 	} finally {
-		return errorMessage
+		return msg
 	}
-}
-
-fun retrofit2.HttpException.getServerErrorMessage(): String {
-	var errorMessage = DEFAULT_ERROR
-	try {
-		val gson = Gson()
-		val json = response().errorBody()?.string()
-		val error = gson.fromJson(json, Msg::class.java)
-		e(error.msg)
-		errorMessage = error.msg
-
-	} catch (e: Exception) {
-		//Network error
-		e(errorMessage)
-	} finally {
-		return errorMessage
-	}
-}
-
-fun Throwable.getDefaultErrorMessage(): String {
-	val errorMessage = DEFAULT_ERROR
-	this.printStackTrace()
-	e(this.message)
-	return errorMessage
 }

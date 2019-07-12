@@ -1,10 +1,9 @@
-package values
+package ir.atriatech.core.extensions
 
 import android.annotation.SuppressLint
 import android.widget.Toast
 import com.muddzdev.styleabletoast.StyleableToast
 import ir.atriatech.core.R
-import ir.atriatech.core.extensions.app
 
 private var toast: Toast? = null
 

@@ -25,12 +25,12 @@ ext {
             'minSdk'                   : 17,
             'compileSdk'               : 28,
             'buildTools'               : '29.0.0-rc2',
-            'gradle'                   : '3.5.0-beta03',
+            'gradle'                   : '3.6.0-alpha04',
             'databinding'              : '3.5.0-alpha11',
             'multidex'                 : '2.0.1',
             'navigation_fragment_ktx'  : '2.0.0',
             'navigation_ui_ktx'        : '2.0.0',
-            'kotlin_version'           : '1.3.31',
+            'kotlin_version'           : '1.3.41',
             'lifecycle'                : '2.1.0-alpha04',
             'room'                     : '2.1.0-alpha06',
             'dagger'                   : '2.22.1',
@@ -40,7 +40,7 @@ ext {
             'supportv4'                : '1.0.0',
             'supportcoreui'            : '1.0.0',
             'material'                 : '1.0.0',
-            'constraint'               : '2.0.0-alpha4',
+            'constraint'               : '1.1.3',
             'rxjava'                   : '2.2.8',
             'rxandroid'                : '2.1.1',
             'ktx'                      : '1.1.0-alpha05',
@@ -61,6 +61,8 @@ ext {
             'styleabletoast'           : '2.2.2',
             'keyboardvisibilityevent'  : '2.3.0',
             'smoothprogressbar'        : '1.1.0',
+            'test_core'                : '1.0.0',
+            'mockito'                  : '1.10.19',
             'sourceCompat'             : JavaVersion.VERSION_1_8,
             'targetCompat'             : JavaVersion.VERSION_1_8
     ]
@@ -135,6 +137,8 @@ ext {
                     'junit'        : "junit:junit:${versions.junit}",
                     'test_junit'   : "androidx.test.ext:junit:${versions.test_junit}",
                     'espresso_core': "androidx.test.espresso:espresso-core:${versions.test_ext}",
+                    'test_core'    : "androidx.test:core:${versions.test_core}",
+                    'mockito'      : "org.mockito:mockito-core:${versions.mockito}",
             ],
             additional : [
                     'logger'                 : "com.orhanobut:logger:${versions.logger}",
@@ -162,6 +166,20 @@ ext {
             [configuration: "implementation", dependency: project(modules.core)],
             [configuration: "kapt", dependency: deps.room.room_compiler],
             [configuration: "kapt", dependency: deps.google.dagger_compiler],
+
+            //Test
+            [configuration: "testImplementation", dependency: deps.test.junit],
+            [configuration: "androidTestImplementation", dependency: deps.test.test_junit],
+            [configuration: "androidTestImplementation", dependency: deps.test.espresso_core],
+            [configuration: "testImplementation", dependency: deps.test.test_core],
+            [configuration: "testImplementation", dependency: deps.test.mockito],
+    ]
+
+    network_deps = [
+            //Square up
+            [configuration: "api", dependency: deps.squareup.retrofit],
+            [configuration: "api", dependency: deps.squareup.converter_gson],
+            [configuration: "api", dependency: deps.squareup.okhttp],
     ]
 
     //Core dependencies
@@ -231,6 +249,8 @@ ext {
             [configuration: "testImplementation", dependency: deps.test.junit],
             [configuration: "androidTestImplementation", dependency: deps.test.test_junit],
             [configuration: "androidTestImplementation", dependency: deps.test.espresso_core],
+            [configuration: "testImplementation", dependency: deps.test.test_core],
+            [configuration: "testImplementation", dependency: deps.test.mockito],
 
             //Additional
             [configuration: "api", dependency: deps.additional.logger],

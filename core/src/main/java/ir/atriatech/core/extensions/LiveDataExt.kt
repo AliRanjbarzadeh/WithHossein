@@ -4,13 +4,14 @@ import androidx.annotation.NonNull
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import ir.atriatech.core.entities.ServerErrorObject
 import ir.atriatech.core.networking.Outcome
 
 interface LiveResult<T> {
 	fun onProgress(loading: Boolean)
 	fun onFailure(e: Throwable)
 	fun onSuccess(data: T)
-	fun onServerError(errorMessage: String)
+	fun onServerError(serverErrorObject: ServerErrorObject)
 	fun onUnauthorized()
 }
 
@@ -23,7 +24,7 @@ fun <T> LiveData<Outcome<T>>.observeOutCome(@NonNull owner: LifecycleOwner, @Non
 
 			is Outcome.Failure -> liveResult.onFailure(outcome.e)
 
-			is Outcome.ServerError -> liveResult.onServerError(outcome.httpException.getServerErrorMessage())
+			is Outcome.ServerError -> liveResult.onServerError(outcome.httpException.getServerErrorObject())
 
 			is Outcome.Unauthorized -> {
 				liveResult.onUnauthorized()

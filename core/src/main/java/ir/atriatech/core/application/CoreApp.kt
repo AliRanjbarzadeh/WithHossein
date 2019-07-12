@@ -46,7 +46,8 @@ open class CoreApp : Application() {
 	}
 
 	private fun initDI() {
-		coreComponent = DaggerCoreComponent.builder().appModule(AppModule(applicationContext)).build()
+		coreComponent =
+			DaggerCoreComponent.builder().appModule(AppModule(applicationContext)).build()
 	}
 
 	private fun initLogger() {
@@ -79,7 +80,8 @@ open class CoreApp : Application() {
 	}
 
 	private fun initLanguage() {
-		val language = loadFromSp<String>(Constants.LANGUAGE_SESSION_KEY, Constants.DEFAULT_LANGUAGE)
+		val language =
+			loadFromSp<String>(Constants.LANGUAGE_SESSION_KEY, Constants.DEFAULT_LANGUAGE)
 		setLanguage(language)
 	}
 

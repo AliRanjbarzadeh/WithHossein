@@ -1,24 +1,25 @@
 package ir.atriatech.core.extensions
 
+import androidx.lifecycle.MutableLiveData
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
-import ir.atriatech.core.application.BaseMutableLiveData
 import ir.atriatech.core.networking.Outcome
 
 /**
  * Extension function to convert a Publish subject into a LiveData by subscribing to it.
  **/
-fun <T> PublishSubject<T>.toLiveData(compositeDisposable: CompositeDisposable): BaseMutableLiveData<T> {
-	val data = BaseMutableLiveData<T>()
-	data.disposable = this.subscribe { t: T -> data.value = t }
-	compositeDisposable.add(data.disposable!!)
+fun <T> PublishSubject<T>.toLiveData(compositeDisposable: CompositeDisposable): MutableLiveData<T> {
+	val data = MutableLiveData<T>()
+	compositeDisposable.add(this.subscribe { t: T -> data.value = t })
 	return data
 }
 
-fun <T> PublishSubject<T>.refreshLiveData(compositeDisposable: CompositeDisposable, data: BaseMutableLiveData<T>) {
-	data.disposable = this.subscribe { t: T -> data.value = t }
-	compositeDisposable.add(data.disposable!!)
+fun <T> PublishSubject<T>.refreshLiveData(
+	compositeDisposable: CompositeDisposable,
+	data: MutableLiveData<T>
+) {
+	compositeDisposable.add(this.subscribe { t: T -> data.value = t })
 }
 
 /**

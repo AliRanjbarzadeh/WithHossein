@@ -10,7 +10,11 @@ import ir.meysamd.withhossein.core.BAD_REQUEST
 import ir.meysamd.withhossein.core.UNAUTHORIZED
 
 open class BaseRepository {
-	fun <T> requestToNetwork(subject: PublishSubject<Outcome<T>>, single: Single<T>, disposable: CompositeDisposable) {
+	fun <T> requestToNetwork(
+		subject: PublishSubject<Outcome<T>>,
+		single: Single<T>,
+		disposable: CompositeDisposable
+	) {
 		subject.loading(true)
 		single.performOnBackOutOnMain()
 			.subscribe({
@@ -33,6 +37,6 @@ open class BaseRepository {
 	}
 
 	fun <T> outCome(): PublishSubject<Outcome<T>> {
-		return PublishSubject.create<Outcome<T>>()
+		return PublishSubject.create()
 	}
 }

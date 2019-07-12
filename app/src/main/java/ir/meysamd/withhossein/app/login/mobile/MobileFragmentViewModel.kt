@@ -2,14 +2,14 @@ package ir.meysamd.withhossein.app.login.mobile
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import ir.atriatech.core.entities.Msg
+import ir.atriatech.core.entities.ServerErrorObject
 import ir.atriatech.core.extensions.toEn
 import ir.atriatech.core.extensions.toLiveData
 import ir.atriatech.core.extensions.validMobile
 import ir.atriatech.core.networking.Outcome
 import ir.meysamd.withhossein.app.login.LoginRepository
 import ir.meysamd.withhossein.core.BaseFragmentViewModel
-import values.eToast
+import ir.atriatech.core.extensions.eToast
 import javax.inject.Inject
 
 class MobileFragmentViewModel : BaseFragmentViewModel() {
@@ -25,7 +25,7 @@ class MobileFragmentViewModel : BaseFragmentViewModel() {
 	var empty = ""
 	var notValid = ""
 
-	val msg: LiveData<Outcome<Msg>> by lazy { loginRepository.msgOutcome.toLiveData(bag) }
+	val serverErrorObject: LiveData<Outcome<ServerErrorObject>> by lazy { loginRepository.msgOutcome.toLiveData(bag) }
 
 	init {
 		component.inject(this)
